@@ -1,43 +1,26 @@
-import java.util.HashMap;
-import java.util.Map;
+class Leap {
 
-class RnaTranscription {
-    private final Map<Character, Character> transcriptionMap;
+    boolean isLeapYear(int year) {
+        boolean divisibleBy4 = year % 4 == 0;
+        boolean divisibleBy100 = year % 100 == 0;
+        boolean divisibleBy400 = year % 400 == 0;
 
-    public RnaTranscription() {
-        transcriptionMap = new HashMap<>();
-        transcriptionMap.put('G', 'C');
-        transcriptionMap.put('C', 'G');
-        transcriptionMap.put('T', 'A');
-        transcriptionMap.put('A', 'U');
-    }
-
-    String transcribe(String dnaStrand) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : dnaStrand.toCharArray()) {
-            if (transcriptionMap.containsKey(c)) {
-
-                sb.append(transcriptionMap.get(c));
-
-            } else {
-                throw new IllegalArgumentException("Invalid nucleotides: " + sb.toString().trim());
-
-            }
+        if (divisibleBy4 && (!divisibleBy100 || divisibleBy400)) {
+            return true;
+        } else {
+            return false;
         }
-        return sb.toString();
     }
 
 }
 
 public class ExercismPractice {
     public static void main(String[] args) {
-        RnaTranscription transcriber = new RnaTranscription();
+        Leap testYear = new Leap();
+        System.out.println(testYear.isLeapYear(2015));
+        System.out.println(testYear.isLeapYear(1970));
+        System.out.println(testYear.isLeapYear(1996));
+        System.out.println(testYear.isLeapYear(1960));
 
-        // Example usage:
-        String dnaStrand = "T";
-        String rnaStrand = transcriber.transcribe(dnaStrand);
-
-        System.out.println("DNA Strand: " + dnaStrand);
-        System.out.println("RNA Strand: " + rnaStrand);
     }
 }
